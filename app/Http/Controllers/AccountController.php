@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\AccountType;
+use App\Enums\AccountCategory;
 use Illuminate\Http\Request;
 use App\Models\Account;
 
@@ -28,7 +30,11 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //
+        // cases()はenumが持つ全ての値を配列で返すメソッド
+        return view('accounts.create', [
+            'types' => AccountType::cases(),
+            'categories' => AccountCategory::cases(),
+        ]);
     }
 
     /**
@@ -36,7 +42,14 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Account::create([
+            'user_id' => auth()->id(),
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'category' => $request->input('category'),
+        ]);
+
+        return redirect()->route('accounts.index');
     }
 
     /**

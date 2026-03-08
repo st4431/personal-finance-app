@@ -58,24 +58,39 @@ class BalanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $account_id, string $balance_id)
     {
-        //
+        $balance = Balance::findOrFail($balance_id);
+        $account = Account::findOrFail($account_id);
+        return view('balances.edit', [
+            'account' => $account, 
+            'balance' => $balance
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $account_id, string $balance_id)
     {
-        //
+        $balance = Balance::findOrFail($balance_id);
+        $balance ->update([
+            'year' => $request->input('year'),
+            'month' => $request->input('month'),
+            'balance' => $request->input('balance'),
+        ]);
+
+        return redirect()->route('accounts.balances.index', ['account' => $account_id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $account_id, string $balance_id)
     {
-        //
+        $balance = Balance::findOrFail($balance_id);
+        $balance->delete();
+
+        return redirect()->route('accounts.balances.index', ['account' => $account_id]);
     }
 }

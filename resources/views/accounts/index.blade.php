@@ -12,9 +12,9 @@
             <span>{{ $account->category }}</span>
             <a href="{{ route('accounts.edit', $account->id) }}">編集</a>
             <form method="POST" action="{{ route('accounts.destroy', $account->id) }}" style="display:inline">
-              @csrf
-              @method('DELETE')
-              <button type="submit">削除</button>
+                @csrf
+                @method('DELETE')
+                <button type="submit">削除</button>
             </form>
         </div>
     @endforeach

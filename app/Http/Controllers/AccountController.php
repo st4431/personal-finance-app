@@ -65,7 +65,12 @@ class AccountController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $account = Account::findOrFail($id);
+        return view('accounts.edit', [
+            'account' => $account,
+            'types' => AccountType::cases(),
+            'categories' => AccountCategory::cases(),
+        ]);
     }
 
     /**
@@ -73,7 +78,14 @@ class AccountController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $account = Account::findOrFail($id);
+        $account ->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'category' => $request->input('category'),
+        ]);
+
+        return redirect()->route('accounts.index');
     }
 
     /**

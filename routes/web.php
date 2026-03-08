@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // 慣習としてurlは複数形にする
     Route::resource('accounts', AccountController::class);
+    // accounts.balancesは、accounts/{account}/balancesと認識されるらしい
+    // accountsというリソース名からLaravelが自動的に{account}というパラメータ名を生成しているらしい
+    Route::resource('accounts.balances', BalanceController::class);
 });
 
 

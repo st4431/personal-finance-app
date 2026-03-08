@@ -13,7 +13,7 @@ class AccountController extends Controller
      * Display a listing of the resource.
      */
     // Request $requestでHTTPリクエストの情報を引数として受け取っている
-    public function index(Request $request)
+    public function index()
     {
         // auth() は認証情報（全ユーザーのidやパスワードなど）にアクセスする
         // id() 今ログインしているユーザーのidを取得する

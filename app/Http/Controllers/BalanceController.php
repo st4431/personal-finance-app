@@ -11,9 +11,12 @@ class BalanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $account)
     {
-        //
+        $balances = Balance::where('account_id', $account)->get();
+        $account = Account::findOrFail($account);
+
+        return view('balances.index', ['balances' => $balances, 'account' =>$account]);
     }
 
     /**

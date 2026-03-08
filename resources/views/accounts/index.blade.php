@@ -17,6 +17,7 @@
                 <button type="submit">削除</button>
             </form>
             <a href="{{ route('accounts.balances.create', $account->id) }}">残高入力</a>
+            <a href="{{ route('accounts.balances.index', $account->id)}}">残高一覧表示</a>
         </div>
     @endforeach
 </x-app-layout>

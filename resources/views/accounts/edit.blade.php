@@ -13,7 +13,7 @@
         <label>種別</label>
         <select name="type">
           @foreach ($types as $type)
-            <option value="{{ $type->value }}" @selected($account->type === $type->value)>{{ $type->label() }}</option>
+            <option value="{{ $type->value }}" @selected($account->type === $type)>{{ $type->label() }}</option>
           @endforeach
         </select>
       </div>
@@ -21,7 +21,7 @@
         <label>資産/負債</label>
         <select name="category">
           @foreach ($categories as $category)
-            <option value="{{ $category->value }}" @selected($account->category === $category->value)>{{ $category->label() }}</option>
+            <option value="{{ $category->value }}" @selected($account->category === $category)>{{ $category->label() }}</option>
           @endforeach
         </select>
       </div>

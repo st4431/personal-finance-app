@@ -8,8 +8,8 @@
     @foreach ($accounts as $account)
         <div>
             <span>{{ $account->name }}</span>
-            <span>{{ $account->type }}</span>
-            <span>{{ $account->category }}</span>
+            <span>{{ $account->type->label() }}</span>
+            <span>{{ $account->category->label() }}</span>
             <a href="{{ route('accounts.edit', $account->id) }}">編集</a>
             <form method="POST" action="{{ route('accounts.destroy', $account->id) }}" style="display:inline">
                 @csrf

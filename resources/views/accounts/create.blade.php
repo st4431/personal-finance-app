@@ -2,6 +2,11 @@
     <x-slot name="header">
         <h2>新規口座登録</h2>
     </x-slot>
+    @if ($errors->any())
+      @foreach ($errors->all() as $error)
+        <p style="color: red;">{{ $error }}</p>
+      @endforeach
+    @endif
     <form method="POST" action="{{ route('accounts.store') }}">
       @csrf
       <div>

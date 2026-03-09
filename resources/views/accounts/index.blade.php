@@ -4,6 +4,7 @@
     </x-slot>
 
     <a href="{{ route('accounts.create') }}">新規口座登録</a>
+    <a href="{{ route('balance-sheets.index')}}">月別口座一覧</a>
 
     @foreach ($accounts as $account)
         <div>

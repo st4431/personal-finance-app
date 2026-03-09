@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBalanceRequest;
+use App\Http\Requests\UpdateBalanceRequest;
 use App\Models\Account;
 use App\Models\Balance;
 use Illuminate\Http\Request;
@@ -35,7 +37,7 @@ class BalanceController extends Controller
      * Store a newly created resource in storage.
      */
     // $request->route('account')でも受け取れるけど、分けたほうが明示的なのでこっちにする
-    public function store(Request $request, string $account)
+    public function store(StoreBalanceRequest $request, string $account)
     {
         Balance::create([
             'account_id' => $account,
@@ -71,7 +73,7 @@ class BalanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $account_id, string $balance_id)
+    public function update(UpdateBalanceRequest $request, string $account_id, string $balance_id)
     {
         $balance = Balance::findOrFail($balance_id);
         $balance ->update([

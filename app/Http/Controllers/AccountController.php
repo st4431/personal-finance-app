@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\AccountType;
 use App\Enums\AccountCategory;
+use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use Illuminate\Http\Request;
 use App\Models\Account;
 
@@ -40,7 +42,7 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccountRequest $request)
     {
         Account::create([
             'user_id' => auth()->id(),
@@ -76,7 +78,7 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAccountRequest $request, string $id)
     {
         $account = Account::findOrFail($id);
         $account ->update([

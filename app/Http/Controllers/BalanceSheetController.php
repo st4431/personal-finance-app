@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\AccountCategory;
-use Illuminate\Http\Request;
+use App\Http\Requests\BalanceSheetRequest;
 use App\Models\Balance;
 
 class BalanceSheetController extends Controller
@@ -11,7 +11,7 @@ class BalanceSheetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(BalanceSheetRequest $request)
     {
         $year = (int) $request->input('year', now()->year);
         $month = (int) $request->input('month', now()->month);

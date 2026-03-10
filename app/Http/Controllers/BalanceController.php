@@ -17,6 +17,7 @@ class BalanceController extends Controller
     {
         $balances = Balance::where('account_id', $account)->get();
         $account = Account::findOrFail($account);
+        $this->authorize('view', $account);
 
         return view('balances.index', ['balances' => $balances, 'account' =>$account]);
     }
@@ -28,6 +29,7 @@ class BalanceController extends Controller
     {
         // ユーザーが「どの口座の残高を入力しているか」画面上で見せるためにidを使ってaccountを持ってきている
         $account = Account::findOrFail($account);
+        $this->authorize('view', $account);
         return view('balances.create',[
             'account' => $account,
         ]);
@@ -39,8 +41,10 @@ class BalanceController extends Controller
     // $request->route('account')でも受け取れるけど、分けたほうが明示的なのでこっちにする
     public function store(StoreBalanceRequest $request, string $account)
     {
+        $account = Account::findOrFail($account);
+        $this->authorize('view', $account);
         Balance::create([
-            'account_id' => $account,
+            'account_id' => $account->id,
             'year' => $request->input('year'),
             'month' => $request->input('month'),
             'balance' => $request->input('balance'),
@@ -63,6 +67,7 @@ class BalanceController extends Controller
     public function edit(string $account_id, string $balance_id)
     {
         $balance = Balance::findOrFail($balance_id);
+        $this->authorize('view', $balance);
         $account = Account::findOrFail($account_id);
         return view('balances.edit', [
             'account' => $account, 
@@ -76,6 +81,7 @@ class BalanceController extends Controller
     public function update(UpdateBalanceRequest $request, string $account_id, string $balance_id)
     {
         $balance = Balance::findOrFail($balance_id);
+        $this->authorize('update', $balance);
         $balance ->update([
             'year' => $request->input('year'),
             'month' => $request->input('month'),
@@ -91,6 +97,7 @@ class BalanceController extends Controller
     public function destroy(string $account_id, string $balance_id)
     {
         $balance = Balance::findOrFail($balance_id);
+        $this->authorize('delete', $balance);
         $balance->delete();
 
         return redirect()->route('accounts.balances.index', ['account' => $account_id]);

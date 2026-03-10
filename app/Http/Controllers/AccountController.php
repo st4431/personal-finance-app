@@ -68,6 +68,10 @@ class AccountController extends Controller
     public function edit(string $id)
     {
         $account = Account::findOrFail($id);
+        // $thisはそのクラスのインスタンス自身を指す
+        // authorizeはAccountControllerに直接定義していないけど、親クラスのControllerが持っている
+        // Javaでいう継承と同じで、親クラスのメソッドを$this->で呼べる
+        $this->authorize('view', $account);
         return view('accounts.edit', [
             'account' => $account,
             'types' => AccountType::cases(),
@@ -81,6 +85,7 @@ class AccountController extends Controller
     public function update(UpdateAccountRequest $request, string $id)
     {
         $account = Account::findOrFail($id);
+        $this->authorize('update', $account);
         $account ->update([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
@@ -96,6 +101,7 @@ class AccountController extends Controller
     public function destroy(string $id)
     {
         $account = Account::findOrFail($id);
+        $this->authorize('destroy', $account);
         $account->delete();
 
         return redirect()->route('accounts.index');
